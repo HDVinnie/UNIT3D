@@ -108,6 +108,13 @@ Route::group(['middleware' => 'language'], function () {
             });
         });
 
+        // Auth Log System
+        Route::group(['prefix' => 'authentications'], function () {
+            Route::name('authentications.')->group(function () {
+                Route::get('/{username}', 'AuthenticationsController@show')->name('show');
+            });
+        });
+
         // RSS System
         Route::group(['prefix' => 'rss'], function () {
             Route::name('rss.')->group(function () {

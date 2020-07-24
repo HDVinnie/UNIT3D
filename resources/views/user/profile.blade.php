@@ -621,17 +621,24 @@
                         </td>
                     @endif
                 </tr>
+                <tr>
+                    <td> @lang('user.last_auth_ip')</td>
+                    <td>
+                        <span class="text-success text-bold"> {{ $user->authentications->last()->ip_address }}
+                            @if (auth()->user()->id == $user->id || auth()->user()->group->is_modo)
+                                <a href="{{ route('authentications.show', ['username' => $user->username]) }}">
+                                    <span class="badge-user text-bold"><strong>@lang('user.auth-log')</strong></span>
+                                </a>
+                            @endif
+                        </span>
+
+                    </td>
+                </tr>
                 </tbody>
             </table>
             </div>
             <br>
         </div>
-
-
-
-
-
-
 
                 <div class="block">
                     <h3><i class="{{ config('other.font-awesome') }} fa-bell"></i> @lang('user.important-info')</h3>
@@ -685,16 +692,8 @@
                         {{ $hitrun->links() }}
                     </div>
                 </div>
-
-
-
-
-
-
-
         @endif
         @endif
         </div>
-
         @include('user.user_modals', ['user' => $user])
 @endsection

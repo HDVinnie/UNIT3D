@@ -142,4 +142,12 @@ return [
     'TwoStepVerifiedLifetimeMinutes'   => 6 * 60,
     'TwoStepTimeResetBufferSeconds'    => 6 * 60,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Auth Logging Enabled
+    |--------------------------------------------------------------------------
+    */
+
+    'logging' => true,
+
 ];

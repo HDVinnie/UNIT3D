@@ -51,7 +51,6 @@ class Kernel extends ConsoleKernel
         $schedule->command('auto:remove_featured_torrent')->hourly();
         $schedule->command('auto:recycle_invites')->daily();
         $schedule->command('auto:recycle_activity_log')->daily();
-        $schedule->command('auto:recycle_failed_logins')->daily();
         $schedule->command('auto:disable_inactive_users')->daily();
         $schedule->command('auto:softdelete_disabled_users')->daily();
         $schedule->command('auto:recycle_claimed_torrent_requests')->daily();

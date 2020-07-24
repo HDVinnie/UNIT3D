@@ -25,6 +25,7 @@
         "guzzlehttp/guzzle": "^6.3",
         "hootlex/laravel-moderation": "^1.0",
         "intervention/image": "^2.4",
+        "jenssegers/agent": "^2.6",
         "kyslik/column-sortable": "^6.0",
         "laravel/framework": "^7.11",
         "laravel/tinker": "^2.0",

@@ -14,7 +14,6 @@
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -30,15 +29,21 @@ class EventServiceProvider extends ServiceProvider
         'Illuminate\Auth\Events\Login' => [
             \App\Listeners\LoginListener::class,
         ],
-        'Illuminate\Auth\Events\Failed' => [
-            \App\Listeners\FailedLoginListener::class,
-        ],
         'Gstt\Achievements\Event\Unlocked' => [
             \App\Listeners\AchievementUnlocked::class,
         ],
         'Spatie\Backup\Events\BackupZipWasCreated' => [
             \App\Listeners\PasswordProtectBackup::class,
         ],
+    ];
+
+    /**
+     * The Subscriber Classes To Register.
+     *
+     * @var array
+     */
+    protected $subscribe = [
+        'App\Subscribers\AuthEventSubscriber',
     ];
 
     /**
