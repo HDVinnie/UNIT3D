@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -26,7 +28,7 @@ class StaffTicketClosed extends Notification
      * Create a new notification instance.
      *
      *
-     * @return mixed
+     * @return void
      */
     public function __construct(private Ticket $ticket)
     {
@@ -39,7 +41,7 @@ class StaffTicketClosed extends Notification
      *
      * @return array
      */
-    public function via($notifiable)
+    public function via(mixed $notifiable): array
     {
         return ['mail'];
     }
@@ -51,7 +53,7 @@ class StaffTicketClosed extends Notification
      *
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail(mixed $notifiable): MailMessage
     {
         return (new MailMessage())
                     ->subject('A ticket was closed (Staff)')
@@ -66,7 +68,7 @@ class StaffTicketClosed extends Notification
      *
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray(mixed $notifiable): array
     {
         return [
             //

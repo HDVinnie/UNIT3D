@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -23,14 +25,14 @@ class ResetPasswordController extends Controller
 {
     use ResetsPasswords;
 
-    protected $redirectTo = '/';
+    protected string $redirectTo = '/';
 
     public function __construct()
     {
         $this->middleware('guest');
     }
 
-    protected function resetPassword($user, $password)
+    protected function resetPassword($user, $password): void
     {
         $validatingGroup = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
         $memberGroup = \cache()->rememberForever('member_group', fn () => Group::where('slug', '=', 'user')->pluck('id'));

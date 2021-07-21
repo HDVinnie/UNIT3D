@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -33,11 +35,8 @@ class ForgotUsernameController extends Controller
 
     /**
      * Send Username Reminder.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function sendUsernameReminder(Request $request)
+    public function sendUsernameReminder(Request $request): \Illuminate\Http\RedirectResponse
     {
         $email = $request->get('email');
 

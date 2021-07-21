@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -34,7 +36,7 @@ class NotifyUserTicketWasClosed
      *
      * @return void
      */
-    public function handle(TicketClosed $event)
+    public function handle(TicketClosed $event): void
     {
         //
     }

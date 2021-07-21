@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -55,9 +57,9 @@ class SystemBot
      *
      * @param $output
      *
-     * @return mixed
+     * @return array|string
      */
-    public function replaceVars($output)
+    public function replaceVars($output): array | string
     {
         $output = \str_replace(['{me}', '{command}'], [$this->bot->name, $this->bot->command], $output);
         if (\str_contains($output, '{bots}')) {
@@ -89,9 +91,9 @@ class SystemBot
      *
      * @return string
      */
-    public function putGift($receiver = '', $amount = 0, $note = '')
+    public function putGift(string $receiver = '', int $amount = 0, string $note = ''): string
     {
-        $output = \implode(' ', $note);
+        $output = \implode((array) ' ', $note);
         $v = \validator(['receiver' => $receiver, 'amount'=> $amount, 'note'=> $output], [
             'receiver'   => 'required|string|exists:users,username',
             'amount'     => \sprintf('required|numeric|min:1|max:%s', $this->target->seedbonus),
@@ -141,16 +143,17 @@ class SystemBot
     /**
      * Process Message.
      *
-     * @param        $type
-     * @param string $message
-     * @param int    $targeted
+     * @param                  $type
+     * @param \App\Models\User $user
+     * @param string           $message
+     * @param int              $targeted
      *
      * @return bool
      */
-    public function process($type, User $user, $message = '', $targeted = 0)
+    public function process($type, User $user, string $message = '', int $targeted = 0): bool
     {
         $this->target = $user;
-        $x = $type == 'message' ? 0 : 1;
+        $x = $type === 'message' ? 0 : 1;
 
         $y = $x + 1;
         $z = $y + 1;
@@ -185,7 +188,7 @@ class SystemBot
     /**
      * Output Message.
      */
-    public function pm()
+    public function pm(): \Illuminate\Http\Response | bool | \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\Routing\ResponseFactory
     {
         $type = $this->type;
         $target = $this->target;
@@ -193,7 +196,7 @@ class SystemBot
         $message = $this->message;
         $targeted = $this->targeted;
 
-        if ($type == 'message' || $type == 'private') {
+        if ($type === 'message' || $type === 'private') {
             $receiverDirty = 0;
             $receiverEchoes = \cache()->get('user-echoes'.$target->id);
             if (! $receiverEchoes || ! \is_array($receiverEchoes) || \count($receiverEchoes) < 1) {
@@ -250,7 +253,7 @@ class SystemBot
 
             return \response('success');
         }
-        if ($type == 'echo') {
+        if ($type === 'echo') {
             if ($txt != '') {
                 $roomId = 0;
                 $message = $this->chatRepository->botMessage($this->bot->id, $roomId, $txt, $target->id);
@@ -259,7 +262,7 @@ class SystemBot
             return \response('success');
         }
 
-        if ($type == 'public') {
+        if ($type === 'public') {
             if ($txt != '') {
                 $dumproom = $this->chatRepository->message($target->id, $target->chatroom->id, $message, null, null);
                 $dumproom = $this->chatRepository->message(1, $target->chatroom->id, $txt, null, $this->bot->id);

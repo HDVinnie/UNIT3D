@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -39,9 +41,9 @@ class AutoRecycleAudits extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $current = Carbon::now();
         $audits = Audit::where('created_at', '<', $current->copy()->subDays(\config('audit.recycle'))->toDateTimeString())->get();

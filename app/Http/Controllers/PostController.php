@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -45,12 +47,8 @@ class PostController extends Controller
 
     /**
      * Store A New Post To A Topic.
-     *
-     * @param \App\Models\Topic $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function reply(Request $request, $id)
+    public function reply(Request $request, Topic $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -58,7 +56,7 @@ class PostController extends Controller
         $category = $forum->getCategory();
 
         // The user has the right to create a post here?
-        if (! $category->getPermission()->reply_topic || ($topic->state == 'close' && ! $request->user()->group->is_modo)) {
+        if (! $category->getPermission()->reply_topic || ($topic->state === 'close' && ! $request->user()->group->is_modo)) {
             return \redirect()->route('forums.index')
                 ->withErrors('You Cannot Reply To This Topic!');
         }
@@ -164,11 +162,8 @@ class PostController extends Controller
 
     /**
      * Edit Post Form.
-     *
-     * @param \App\Models\Topic $id
-     * @param \App\Models\Post  $postId
      */
-    public function postEditForm($id, $postId): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function postEditForm(Topic $id, Post $postId): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $topic = Topic::findOrFail($id);
         $forum = $topic->forum;
@@ -185,12 +180,8 @@ class PostController extends Controller
 
     /**
      * Edit A Post In A Topic.
-     *
-     * @param \App\Models\Post $postId
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function postEdit(Request $request, $postId)
+    public function postEdit(Request $request, Post $postId): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $post = Post::findOrFail($postId);
@@ -207,13 +198,10 @@ class PostController extends Controller
     /**
      * Delete A Post.
      *
-     * @param \App\Models\Post $postId
      *
-     * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
+     *@throws \Exception
      */
-    public function postDelete(Request $request, $postId)
+    public function postDelete(Request $request, Post $postId): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $post = Post::with('topic')->findOrFail($postId);

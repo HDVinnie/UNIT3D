@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,14 +26,14 @@ class TorrentsResource extends ResourceCollection
      *
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'data' => TorrentResource::collection($this->collection),
         ];
     }
 
-    public function with($request)
+    public function with($request): array
     {
         return [
             'links'    => [

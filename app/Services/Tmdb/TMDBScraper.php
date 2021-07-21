@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -30,9 +32,9 @@ use Illuminate\Support\Str;
 class TMDBScraper implements ShouldQueue
 {
     /**
-     * @var mixed|mixed[]|string|null
+     * @var mixed|array|string|null
      */
-    public $id;
+    public mixed $id;
     use SerializesModels;
 
     public function __construct(Request $request = null)
@@ -42,7 +44,7 @@ class TMDBScraper implements ShouldQueue
         }
     }
 
-    public function tv($id = null)
+    public function tv($id = null): void
     {
         if ($id == null) {
             $id = $this->id;
@@ -81,7 +83,7 @@ class TMDBScraper implements ShouldQueue
         }
     }
 
-    public function movie($id = null)
+    public function movie($id = null): void
     {
         if ($id == null) {
             $id = $this->id;
@@ -128,7 +130,7 @@ class TMDBScraper implements ShouldQueue
         }
     }
 
-    public function collection($id = null)
+    public function collection($id = null): void
     {
         if ($id == null) {
             $id = $this->id;
@@ -150,7 +152,7 @@ class TMDBScraper implements ShouldQueue
         //return ['message' => 'Collection with id: ' . $id . ' Has been added  to the database, But movies are loaded with the queue'];
     }
 
-    public function company($id = null)
+    public function company($id = null): void
     {
         if ($id == null) {
             $id = $this->id;

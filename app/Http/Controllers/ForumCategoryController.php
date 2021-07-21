@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,10 +26,8 @@ class ForumCategoryController extends Controller
 {
     /**
      * Show The Forum Category.
-     *
-     * @param \App\Models\Forum $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function show(Forum $id): \Illuminate\Http\RedirectResponse
     {
         // Find the topic
         $forum = Forum::findOrFail($id);

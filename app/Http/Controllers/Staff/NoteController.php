@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -35,12 +37,8 @@ class NoteController extends Controller
 
     /**
      * Store A New User Note.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, $username)
+    public function store(Request $request, User $username): \Illuminate\Http\RedirectResponse
     {
         $staff = $request->user();
         $user = User::where('username', '=', $username)->firstOrFail();
@@ -71,11 +69,11 @@ class NoteController extends Controller
      *
      * @param \App\Models\Note $id
      *
-     * @throws \Exception
+     *@throws \Exception
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Note $id): \Illuminate\Http\RedirectResponse
     {
         $note = Note::findOrFail($id);
         $user = User::findOrFail($note->user_id);

@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -41,13 +43,10 @@ class BanController extends Controller
     /**
      * Ban A User (current_group -> banned).
      *
-     * @param \App\Models\User $username
      *
-     * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
+     *@throws \Exception
      */
-    public function store(Request $request, $username)
+    public function store(Request $request, User $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
@@ -87,12 +86,8 @@ class BanController extends Controller
 
     /**
      * Unban A User (banned -> new_group).
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $username)
+    public function update(Request $request, User $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();

@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,7 +26,7 @@ class TvSeasonController extends Controller
      *
      * @return void
      */
-    public function index()
+    public function index(): void
     {
         //
     }
@@ -33,6 +35,8 @@ class TvSeasonController extends Controller
      * Show A TV Season.
      *
      * @param $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {

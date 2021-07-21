@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -43,10 +45,8 @@ class PollController extends Controller
 
     /**
      * Show A Poll.
-     *
-     * @param \App\Models\Poll $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function show(Poll $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $poll = Poll::where('id', '=', $id)->firstOrFail();
 
@@ -63,11 +63,8 @@ class PollController extends Controller
 
     /**
      * Store A New Poll.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(StorePoll $storePoll)
+    public function store(StorePoll $storePoll): \Illuminate\Http\RedirectResponse
     {
         $user = $storePoll->user();
 
@@ -88,10 +85,8 @@ class PollController extends Controller
 
     /**
      * Poll Edit Form.
-     *
-     * @param \App\Models\Poll $id
      */
-    public function edit($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function edit(Poll $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $poll = Poll::findOrFail($id);
 
@@ -101,13 +96,12 @@ class PollController extends Controller
     /**
      * Update A New Poll.
      *
-     * @param $id
-     *
-     * @throws \Exception
+     * @param \App\Http\Requests\StorePoll $storePoll
+     * @param                              $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(StorePoll $storePoll, $id)
+    public function update(StorePoll $storePoll, $id): \Illuminate\Http\RedirectResponse
     {
         $poll = Poll::findOrFail($id);
 
@@ -116,7 +110,7 @@ class PollController extends Controller
         $poll->multiple_choice = (bool) $storePoll->input('multiple_choice');
 
         // Remove the deleted options in poll
-        $oldOptionIds = \collect($poll->options)->map(fn ($option) => $option->id)->all();
+        $oldOptionIds = $poll->options->map(fn ($option) => $option->id)->all();
 
         $existingOldOptionIds = \collect($storePoll->input('option-id'))->map(fn ($id) => (int) $id)->all();
 
@@ -160,11 +154,11 @@ class PollController extends Controller
      *
      * @param \App\Models\Poll $id
      *
-     * @throws \Exception
+     *@throws \Exception
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Poll $id): \Illuminate\Http\RedirectResponse
     {
         $poll = Poll::findOrFail($id);
         $poll->delete();

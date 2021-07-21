@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -41,11 +43,11 @@ class AutoPreWarning extends Command
     /**
      * Execute the console command.
      *
-     * @throws \Exception
+     *@throws \Exception
      *
-     * @return mixed
+     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         if (\config('hitrun.enabled') == true) {
             $carbon = new Carbon();

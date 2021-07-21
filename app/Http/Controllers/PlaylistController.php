@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -57,11 +59,8 @@ class PlaylistController extends Controller
 
     /**
      * Store A New Playlist.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = \auth()->user();
 
@@ -109,10 +108,8 @@ class PlaylistController extends Controller
 
     /**
      * Show A Playlist.
-     *
-     * @param \App\Playlist $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function show(\App\Playlist $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $playlist = Playlist::findOrFail($id);
 
@@ -148,10 +145,8 @@ class PlaylistController extends Controller
 
     /**
      * Show Playlist Update Form.
-     *
-     * @param \App\Playlist $id
      */
-    public function edit($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function edit(\App\Playlist $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = \auth()->user();
         $playlist = Playlist::findOrFail($id);
@@ -163,12 +158,8 @@ class PlaylistController extends Controller
 
     /**
      * Update A Playlist.
-     *
-     * @param \App\Playlist $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, \App\Playlist $id): \Illuminate\Http\RedirectResponse
     {
         $user = \auth()->user();
         $playlist = Playlist::findOrFail($id);
@@ -212,11 +203,11 @@ class PlaylistController extends Controller
      *
      * @param \App\Playlist $id
      *
-     * @throws \Exception
+     *@throws \Exception
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(\App\Playlist $id): \Illuminate\Http\RedirectResponse
     {
         $user = \auth()->user();
         $playlist = Playlist::findOrFail($id);
@@ -233,6 +224,8 @@ class PlaylistController extends Controller
      * Download All Playlist Torrents.
      *
      * @param $id
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function downloadPlaylist($id): \Illuminate\Http\RedirectResponse | \Symfony\Component\HttpFoundation\BinaryFileResponse
     {

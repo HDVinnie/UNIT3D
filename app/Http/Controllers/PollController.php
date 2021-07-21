@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -44,10 +46,8 @@ class PollController extends Controller
 
     /**
      * Show A Poll.
-     *
-     * @param \App\Models\Poll $id
      */
-    public function show(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Http\RedirectResponse
+    public function show(Request $request, Poll $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Http\RedirectResponse
     {
         $poll = Poll::findOrFail($id);
         $user = $request->user();
@@ -63,11 +63,8 @@ class PollController extends Controller
 
     /**
      * Vote On A Poll.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function vote(VoteOnPoll $voteOnPoll)
+    public function vote(VoteOnPoll $voteOnPoll): \Illuminate\Http\RedirectResponse
     {
         $user = $voteOnPoll->user();
         $poll = Option::findOrFail($voteOnPoll->input('option.0'))->poll;
@@ -103,10 +100,8 @@ class PollController extends Controller
 
     /**
      * Show A Polls Results.
-     *
-     * @param \App\Models\Poll $id
      */
-    public function result($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function result(Poll $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $poll = Poll::findOrFail($id);
         $map = [

@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -26,13 +28,14 @@ class ActivateUser extends Mailable
     /**
      * ActivateUser constructor.
      *
-     * @param $code
+     * @param \App\Models\User $user
+     * @param                  $code
      */
     public function __construct(public User $user, public $code)
     {
     }
 
-    public function build()
+    public function build(): self
     {
         return $this->markdown('emails.activate')
             ->subject('Activation Required '.\config('other.title'));

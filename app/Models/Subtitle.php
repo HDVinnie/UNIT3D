@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -72,7 +74,7 @@ class Subtitle extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -85,7 +87,7 @@ class Subtitle extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function torrent()
+    public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Torrent::class);
     }
@@ -95,7 +97,7 @@ class Subtitle extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function language()
+    public function language(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(MediaLanguage::class);
     }
@@ -108,7 +110,7 @@ class Subtitle extends Model
      *
      * @return string
      */
-    public function getSize($bytes = null, $precision = 2)
+    public function getSize($bytes = null, int $precision = 2): string
     {
         $bytes = $this->file_size;
 

@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,11 +26,8 @@ class PlaylistTorrentController extends Controller
 {
     /**
      * Attach A Torrent To A Playlist.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = \auth()->user();
         $playlist = Playlist::findOrFail($request->input('playlist_id'));
@@ -59,11 +58,11 @@ class PlaylistTorrentController extends Controller
      *
      * @param int $id
      *
-     * @throws \Exception
+     *@throws \Exception
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         $user = \auth()->user();
         $playlistTorrent = PlaylistTorrent::findOrFail($id);

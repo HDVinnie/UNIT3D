@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -51,9 +53,9 @@ class AutoGraveyard extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         foreach (Graveyard::where('rewarded', '!=', 1)->oldest()->get() as $reward) {
             $user = User::where('id', '=', $reward->user_id)->first();

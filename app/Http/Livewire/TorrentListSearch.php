@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -27,23 +29,23 @@ class TorrentListSearch extends Component
 {
     use WithPagination;
 
-    public $name = '';
-    public $description = '';
-    public $mediainfo = '';
-    public $uploader = '';
-    public $keywords = [];
-    public $startYear = '';
-    public $endYear = '';
-    public $categories = [];
-    public $types = [];
-    public $resolutions = [];
-    public $genres = [];
-    public $tmdbId = '';
-    public $imdbId = '';
-    public $tvdbId = '';
-    public $malId = '';
-    public $playlistId = '';
-    public $collectionId = '';
+    public string $name = '';
+    public string $description = '';
+    public string $mediainfo = '';
+    public string $uploader = '';
+    public array $keywords = [];
+    public string $startYear = '';
+    public string $endYear = '';
+    public array $categories = [];
+    public array $types = [];
+    public array $resolutions = [];
+    public array $genres = [];
+    public string $tmdbId = '';
+    public string $imdbId = '';
+    public string $tvdbId = '';
+    public string $malId = '';
+    public string $playlistId = '';
+    public string $collectionId = '';
     public $free;
     public $doubleup;
     public $featured;
@@ -56,9 +58,9 @@ class TorrentListSearch extends Component
     public $dying;
     public $dead;
 
-    public $perPage = 25;
-    public $sortField = 'bumped_at';
-    public $sortDirection = 'desc';
+    public int $perPage = 25;
+    public string $sortField = 'bumped_at';
+    public string $sortDirection = 'desc';
 
     protected $queryString = [
         'name'            => ['except' => ''],
@@ -95,7 +97,7 @@ class TorrentListSearch extends Component
         'perPage'         => ['except' => ''],
     ];
 
-    protected $rules = [
+    protected array $rules = [
         'genres.*' => 'exists:genres,id',
     ];
 
@@ -109,7 +111,7 @@ class TorrentListSearch extends Component
         $this->resetPage();
     }
 
-    final public function getTorrentsStatProperty()
+    final public function getTorrentsStatProperty(): \Illuminate\Database\Eloquent\Model | object | \Illuminate\Database\Query\Builder | null
     {
         return DB::table('torrents')
             ->selectRaw('count(*) as total')

@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -25,12 +27,12 @@ class LanguageCensor
      */
     private const SPECIAL_CHARS = "<>\n [].;,";
 
-    protected static function isSpecial($c)
+    protected static function isSpecial($c): bool
     {
         return \str_contains(self::SPECIAL_CHARS, $c);
     }
 
-    protected static function matchWordIndexes($string, $word)
+    protected static function matchWordIndexes($string, $word): array
     {
         $result = [];
         $length = \strlen($word);
@@ -55,7 +57,7 @@ class LanguageCensor
      *
      * @return mixed
      */
-    public static function censor($source)
+    public static function censor($source): mixed
     {
         foreach (\config('censor.redact', []) as $word) {
             $result = '';

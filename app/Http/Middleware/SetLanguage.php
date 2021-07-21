@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -25,7 +27,7 @@ class SetLanguage
      *
      * @param string $locale
      */
-    private function setLocale($locale)
+    private function setLocale(string $locale): void
     {
         // Check if is allowed and set default locale if not
         if (! Language::allowed($locale)) {
@@ -38,7 +40,7 @@ class SetLanguage
         // Set carbon language
         if (\config('language.carbon')) {
             // Carbon uses only language code
-            if (\config('language.mode.code') == 'long') {
+            if (\config('language.mode.code') === 'long') {
                 $locale = \explode('-', $locale)[0];
             }
 
@@ -48,7 +50,7 @@ class SetLanguage
         // Set date language
         if (\config('language.date')) {
             // Date uses only language code
-            if (\config('language.mode.code') == 'long') {
+            if (\config('language.mode.code') === 'long') {
                 $locale = \explode('-', $locale)[0];
             }
 
@@ -56,12 +58,12 @@ class SetLanguage
         }
     }
 
-    public function setDefaultLocale()
+    public function setDefaultLocale(): void
     {
         $this->setLocale(\config('app.locale'));
     }
 
-    public function setUserLocale()
+    public function setUserLocale(): void
     {
         $user = \auth()->user();
 
@@ -72,7 +74,7 @@ class SetLanguage
         }
     }
 
-    public function setSystemLocale($request)
+    public function setSystemLocale($request): void
     {
         if ($request->session()->has('locale')) {
             $this->setLocale(\session('locale'));
@@ -83,12 +85,8 @@ class SetLanguage
 
     /**
      * Handle an incoming request.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(\Illuminate\Http\Request $request, Closure $next): mixed
     {
         if ($request->has('lang')) {
             $this->setLocale($request->get('lang'));

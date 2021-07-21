@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -50,7 +52,7 @@ class ProcessTvJob implements ShouldQueue
     {
     }
 
-    public function handle()
+    public function handle(): void
     {
         $tmdb = new TMDB();
 

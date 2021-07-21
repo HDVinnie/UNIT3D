@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -56,7 +58,7 @@ class TwoStepController extends Controller
      *
      * @return void
      */
-    private function setUser2StepData()
+    private function setUser2StepData(): void
     {
         $user = \auth()->user();
         $twoStepAuth = $this->getTwoStepAuthStatus($user->id);
@@ -75,7 +77,7 @@ class TwoStepController extends Controller
      *
      * @return array
      */
-    private function invalidCodeReturnData($errors = null)
+    private function invalidCodeReturnData($errors = null): array
     {
         $this->authCount = ++$this->twoStepAuth->authCount;
         $this->twoStepAuth->save();
@@ -152,11 +154,13 @@ class TwoStepController extends Controller
      * Verify the user code input.
      *
      *
+     * @param \Illuminate\Http\Request $request
+     *
      * @throws \Exception
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse|null
      */
-    public function verify(Request $request)
+    public function verify(Request $request): ?\Illuminate\Http\JsonResponse
     {
         if (! \config('auth.TwoStepEnabled')) {
             \abort(404);
@@ -202,7 +206,7 @@ class TwoStepController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function resend()
+    public function resend(): \Illuminate\Http\JsonResponse
     {
         if (! \config('auth.TwoStepEnabled')) {
             \abort(404);

@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -56,7 +58,7 @@ class Option extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function poll()
+    public function poll(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Poll::class);
     }

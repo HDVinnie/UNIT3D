@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -35,11 +37,11 @@ class EmailBlacklistUpdate extends Command
     /**
      * Execute the console command.
      *
-     * @throws \JsonException
+     *@throws \JsonException
      *
-     * @return mixed
+     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $count = EmailBlacklistUpdater::update();
 

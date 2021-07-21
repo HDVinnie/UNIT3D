@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -33,7 +35,7 @@ class EmailBlacklistServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         // Add custom validation rules
         Validator::extend('blacklist', "App\Validators\EmailBlacklistValidator@validate");

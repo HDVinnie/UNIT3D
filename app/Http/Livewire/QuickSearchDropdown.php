@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire;
 
 use App\Models\Movie;
@@ -9,11 +11,11 @@ use Livewire\Component;
 
 class QuickSearchDropdown extends Component
 {
-    public $movie = '';
-    public $series = '';
-    public $person = '';
+    public string $movie = '';
+    public string $series = '';
+    public string $person = '';
 
-    public function render()
+    public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
     {
         $search_results = [];
 

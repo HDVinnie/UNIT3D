@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,7 +15,7 @@ class TicketAttachment extends Model
         'full_disk_path',
     ];
 
-    public function getFullDiskPathAttribute()
+    public function getFullDiskPathAttribute(): string
     {
         return $this->disk_path.''.$this->file_name;
     }
@@ -23,7 +25,7 @@ class TicketAttachment extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
     }
@@ -33,7 +35,7 @@ class TicketAttachment extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function ticket()
+    public function ticket(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Ticket::class);
     }

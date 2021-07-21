@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -23,13 +25,13 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     // Upon Successful Login
-    protected $redirectTo = '/';
+    protected string $redirectTo = '/';
 
     // Max Attempts Until Lockout
-    public $maxAttempts = 3;
+    public int $maxAttempts = 3;
 
     // Minutes Lockout
-    public $decayMinutes = 60;
+    public int $decayMinutes = 60;
 
     /**
      * LoginController Constructor.
@@ -39,7 +41,7 @@ class LoginController extends Controller
         $this->middleware('guest', ['except' => 'logout']);
     }
 
-    public function username()
+    public function username(): string
     {
         return 'username';
     }
@@ -50,7 +52,7 @@ class LoginController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    protected function validateLogin(Request $request)
+    protected function validateLogin(Request $request): void
     {
         if (\config('captcha.enabled') == true) {
             $this->validate($request, [
@@ -66,7 +68,7 @@ class LoginController extends Controller
         }
     }
 
-    protected function authenticated(Request $request, $user)
+    protected function authenticated(Request $request, $user): \Illuminate\Http\RedirectResponse
     {
         $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
         $validatingGroup = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));

@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -29,11 +31,8 @@ class AchievementUnlocked
 
     /**
      * Handle the event.
-     *
-     *
-     * @return void
      */
-    public function handle(Unlocked $unlocked)
+    public function handle(Unlocked $unlocked): void
     {
         // There's an AchievementProgress instance located on $event->progress
         $user = User::where('id', '=', $unlocked->progress->achiever_id)->first();

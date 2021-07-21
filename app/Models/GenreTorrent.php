@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -39,7 +41,7 @@ class GenreTorrent extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function genre()
+    public function genre(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Genre::class);
     }
@@ -49,7 +51,7 @@ class GenreTorrent extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function torrent()
+    public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Torrent::class);
     }

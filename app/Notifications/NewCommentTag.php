@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -36,7 +38,7 @@ class NewCommentTag extends Notification implements ShouldQueue
      *
      * @return array
      */
-    public function via($notifiable)
+    public function via(mixed $notifiable): array
     {
         return ['database'];
     }
@@ -48,9 +50,9 @@ class NewCommentTag extends Notification implements ShouldQueue
      *
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray(mixed $notifiable): array
     {
-        if ($this->type == 'torrent') {
+        if ($this->type === 'torrent') {
             return [
                 'title' => $this->tagger.' Has Tagged You In A Torrent Comment',
                 'body'  => $this->tagger.' has tagged you in a Comment for Torrent '.$this->comment->torrent->name,
@@ -58,7 +60,7 @@ class NewCommentTag extends Notification implements ShouldQueue
             ];
         }
 
-        if ($this->type == 'request') {
+        if ($this->type === 'request') {
             return [
                 'title' => $this->tagger.' Has Tagged You In A Request Comment',
                 'body'  => $this->tagger.' has tagged you in a Comment for Request '.$this->comment->request->name,

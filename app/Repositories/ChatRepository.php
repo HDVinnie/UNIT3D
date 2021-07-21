@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -41,12 +43,12 @@ class ChatRepository
         return \config('chat');
     }
 
-    public function bots()
+    public function bots(): \Illuminate\Database\Eloquent\Collection | array
     {
         return $this->bot->all();
     }
 
-    public function echoes($userId)
+    public function echoes($userId): \Illuminate\Database\Eloquent\Collection | array
     {
         return $this->userEcho->with([
             'bot',
@@ -60,7 +62,7 @@ class ChatRepository
             ->get();
     }
 
-    public function audibles($userId)
+    public function audibles($userId): \Illuminate\Database\Eloquent\Collection | array
     {
         return $this->userAudible->with([
             'bot',
@@ -74,7 +76,7 @@ class ChatRepository
             ->get();
     }
 
-    public function rooms()
+    public function rooms(): \Illuminate\Database\Eloquent\Collection | array
     {
         return $this->chatroom->all();
     }
@@ -84,9 +86,9 @@ class ChatRepository
         return $this->chatroom->findOrFail($id);
     }
 
-    public function ping($type, $id)
+    public function ping($type, $id): bool
     {
-        if ($type == 'room') {
+        if ($type === 'room') {
             foreach (Chatroom::where('id', '>', 0)->get() as $room) {
                 \broadcast(new Ping($room->id, $id));
             }
@@ -118,7 +120,7 @@ class ChatRepository
         return $message;
     }
 
-    public function botMessage($botId, $roomId, $message, $receiver = null)
+    public function botMessage($botId, $roomId, $message, $receiver = null): void
     {
         $user = $this->user->find($receiver);
         if ($user->censor) {
@@ -146,7 +148,7 @@ class ChatRepository
         $message->delete();
     }
 
-    public function privateMessage($userId, $roomId, $message, $receiver = null, $bot = null, $ignore = null)
+    public function privateMessage($userId, $roomId, $message, $receiver = null, $bot = null, $ignore = null): \Illuminate\Database\Eloquent\Model | \Illuminate\Database\Eloquent\Collection | \Illuminate\Database\Eloquent\Builder | array | null
     {
         if ($this->user->find($userId)->censor) {
             $message = $this->censorMessage($message);
@@ -181,7 +183,7 @@ class ChatRepository
         return $message;
     }
 
-    public function deleteMessage($id)
+    public function deleteMessage($id): Message
     {
         $message = $this->message->find($id);
 
@@ -192,7 +194,7 @@ class ChatRepository
         }
     }
 
-    public function messages($roomId)
+    public function messages($roomId): \Illuminate\Database\Eloquent\Collection | array
     {
         return $this->message->with([
             'bot',
@@ -209,7 +211,7 @@ class ChatRepository
             ->get();
     }
 
-    public function botMessages($senderId, $botId)
+    public function botMessages($senderId, $botId): \Illuminate\Database\Eloquent\Collection | array
     {
         $systemUserId = User::where('username', 'System')->firstOrFail()->id;
 
@@ -228,7 +230,7 @@ class ChatRepository
             ->get();
     }
 
-    public function privateMessages($senderId, $targetId)
+    public function privateMessages($senderId, $targetId): \Illuminate\Database\Eloquent\Collection | array
     {
         return $this->message->with([
             'bot',
@@ -245,7 +247,7 @@ class ChatRepository
             ->get();
     }
 
-    public function checkMessageLimits($roomId)
+    public function checkMessageLimits($roomId): void
     {
         $messages = $this->messages($roomId)->toArray();
         $limit = \config('chat.message_limit');
@@ -266,7 +268,7 @@ class ChatRepository
         }
     }
 
-    public function systemMessage($message, $bot = null)
+    public function systemMessage($message, $bot = null): self
     {
         $systemUserId = User::where('username', 'System')->first()->id;
 
@@ -304,12 +306,12 @@ class ChatRepository
         return $room;
     }
 
-    public function statuses()
+    public function statuses(): \Illuminate\Database\Eloquent\Collection | array
     {
         return $this->chatStatus->all();
     }
 
-    public function status($user)
+    public function status($user): ChatStatus
     {
         if ($user instanceof User) {
             $status = $this->chatStatus->where('user_id', '=', $user->id)->first();
@@ -332,7 +334,7 @@ class ChatRepository
      *
      * @return string
      */
-    protected function censorMessage($message)
+    protected function censorMessage($message): string
     {
         foreach (\config('censor.redact') as $word) {
             if (\preg_match(\sprintf('/\b%s(?=[.,]|$|\s)/mi', $word), $message)) {

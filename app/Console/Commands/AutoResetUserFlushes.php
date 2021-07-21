@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -35,9 +37,9 @@ class AutoResetUserFlushes extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         // Updates own_flushes for each user
         User::where('own_flushes', '<', '2')->update(['own_flushes' => '2']);

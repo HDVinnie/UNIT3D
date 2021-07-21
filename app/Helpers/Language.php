@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -16,7 +18,7 @@ if (! function_exists('language')) {
      *
      * @return App\Models\Language
      */
-    function language()
+    function language(): \App\Models\Language
     {
         return app('language');
     }

@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -18,9 +20,9 @@ class TV
     /**
      * @var \GuzzleHttp\Client|mixed
      */
-    public $client;
+    public mixed $client;
     public const API_BASE_URI = 'https://api.TheMovieDB.org/3';
-    public $data;
+    public mixed $data;
 
     public function __construct($id)
     {
@@ -51,7 +53,7 @@ class TV
         return $this->data;
     }
 
-    public function get_backdrop()
+    public function get_backdrop(): ?string
     {
         if ($this->data['backdrop_path']) {
             return 'https://image.tmdb.org/t/p/original'.$this->data['backdrop_path'];
@@ -105,7 +107,7 @@ class TV
         return $this->data['last_episode_to_air'];
     }
 
-    public function get_name()
+    public function get_name(): array | string | null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['name']);
     }
@@ -135,17 +137,17 @@ class TV
         return $this->data['original_language'];
     }
 
-    public function get_original_name()
+    public function get_original_name(): array | string | null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['original_name']);
     }
 
-    public function get_overview()
+    public function get_overview(): array | string | null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['overview']);
     }
 
-    public function get_poster()
+    public function get_poster(): ?string
     {
         if ($this->data['poster_path']) {
             return 'https://image.tmdb.org/t/p/original'.$this->data['poster_path'];
@@ -184,7 +186,7 @@ class TV
         return $this->data['vote_count'];
     }
 
-    public function get_trailer()
+    public function get_trailer(): ?string
     {
         if ($this->data['videos']['results']) {
             return 'https://www.youtube.com/embed/'.$this->data['videos']['results'][0]['key'];
@@ -193,7 +195,7 @@ class TV
         return null;
     }
 
-    public function get_videos()
+    public function get_videos(): ?string
     {
         if ($this->data['videos']['results']) {
             return 'https://www.youtube-nocookie.com/embed/'.$this->data['videos']['results'];
@@ -202,7 +204,7 @@ class TV
         return null;
     }
 
-    public function get_images()
+    public function get_images(): ?string
     {
         if ($this->data['images']['results']) {
             return 'https://www.youtube.com/embed/'.$this->data['images']['results'];

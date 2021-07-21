@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -34,12 +36,13 @@ class SendActivationMail implements ShouldQueue
      *
      * @var int
      */
-    public $tries = 3;
+    public int $tries = 3;
 
     /**
      * SendActivationMail Constructor.
      *
-     * @param $code
+     * @param \App\Models\User $user
+     * @param                  $code
      */
     public function __construct(public User $user, public $code)
     {
@@ -50,7 +53,7 @@ class SendActivationMail implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         if ($this->attempts() > 2) {
             $this->delay(\min(30 * $this->attempts(), 300));

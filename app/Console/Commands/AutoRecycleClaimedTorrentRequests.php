@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -49,11 +51,11 @@ class AutoRecycleClaimedTorrentRequests extends Command
     /**
      * Execute the console command.
      *
-     * @throws \Exception
+     *@throws \Exception
      *
-     * @return mixed
+     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $current = Carbon::now();
         $torrentRequests = TorrentRequest::where('claimed', '=', 1)

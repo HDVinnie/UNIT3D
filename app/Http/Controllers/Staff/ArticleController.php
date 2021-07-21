@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -44,11 +46,8 @@ class ArticleController extends Controller
 
     /**
      * Store A New Article.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $article = new Article();
         $article->title = $request->input('title');
@@ -86,10 +85,8 @@ class ArticleController extends Controller
 
     /**
      * Article Edit Form.
-     *
-     * @param \App\Models\Article $id
      */
-    public function edit($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function edit(Article $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $article = Article::findOrFail($id);
 
@@ -98,12 +95,8 @@ class ArticleController extends Controller
 
     /**
      * Edit A Article.
-     *
-     * @param \App\Models\Article $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Article $id): \Illuminate\Http\RedirectResponse
     {
         $article = Article::findOrFail($id);
         $article->title = $request->input('title');
@@ -142,11 +135,11 @@ class ArticleController extends Controller
      *
      * @param \App\Models\Article $id
      *
-     * @throws \Exception
+     *@throws \Exception
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Article $id): \Illuminate\Http\RedirectResponse
     {
         $article = Article::findOrFail($id);
         $article->delete();

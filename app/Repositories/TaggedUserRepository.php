@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -29,12 +31,12 @@ class TaggedUserRepository
      *
      * @var bool
      */
-    protected $debug = false;
+    protected bool $debug = false;
 
     /**
      * @var string
      */
-    protected $regex = '/@[a-zA-Z0-9-_]+/m';
+    protected string $regex = '/@[a-zA-Z0-9-_]+/m';
 
     /**
      * TaggedUserRepository Constructor.
@@ -48,7 +50,7 @@ class TaggedUserRepository
      *
      * @return mixed
      */
-    public function getTags($content)
+    public function getTags($content): mixed
     {
         \preg_match_all($this->regex, $content, $tagged);
 
@@ -60,7 +62,7 @@ class TaggedUserRepository
      *
      * @return bool
      */
-    public function hasTags($content)
+    public function hasTags($content): bool
     {
         return $this->getTags($content) > 0;
     }
@@ -71,12 +73,12 @@ class TaggedUserRepository
      *
      * @return bool
      */
-    public function contains($haystack, $needle)
+    public function contains($haystack, $needle): bool
     {
         return \collect($this->getTags($haystack))->contains($needle);
     }
 
-    public function messageTaggedCommentUsers(string $type, string $content, User $user, $alias, Comment $comment)
+    public function messageTaggedCommentUsers(string $type, string $content, User $user, $alias, Comment $comment): bool
     {
         foreach ($this->getTags($content) as $tag) {
             $taggedUser = $this->user->where('username', \str_replace('@', '', $tag))->first();
@@ -86,7 +88,7 @@ class TaggedUserRepository
         return true;
     }
 
-    public function messageCommentUsers($type, $users, $sender, $alias, Comment $comment)
+    public function messageCommentUsers($type, $users, $sender, $alias, Comment $comment): bool
     {
         // Array of User objects
         if (\is_iterable($users)) {
@@ -111,7 +113,7 @@ class TaggedUserRepository
         return true;
     }
 
-    public function messageTaggedPostUsers(string $type, string $content, User $user, $alias, Post $post)
+    public function messageTaggedPostUsers(string $type, string $content, User $user, $alias, Post $post): bool
     {
         foreach ($this->getTags($content) as $tag) {
             $taggedUser = $this->user->where('username', \str_replace('@', '', $tag))->first();
@@ -121,7 +123,7 @@ class TaggedUserRepository
         return true;
     }
 
-    public function messagePostUsers($type, $users, $sender, $alias, Post $post)
+    public function messagePostUsers($type, $users, $sender, $alias, Post $post): bool
     {
         // Array of User objects
         if (\is_iterable($users)) {
@@ -155,7 +157,7 @@ class TaggedUserRepository
         $this->debug = $debug;
     }
 
-    protected function validate($user)
+    protected function validate($user): bool
     {
         return \is_object($user);
     }

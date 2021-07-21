@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -65,7 +67,7 @@ class Comment extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -78,7 +80,7 @@ class Comment extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function torrent()
+    public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Torrent::class);
     }
@@ -88,7 +90,7 @@ class Comment extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function article()
+    public function article(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Article::class);
     }
@@ -98,7 +100,7 @@ class Comment extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function request()
+    public function request(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(TorrentRequest::class, 'requests_id', 'id');
     }
@@ -108,7 +110,7 @@ class Comment extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function playlist()
+    public function playlist(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Playlist::class);
     }
@@ -118,7 +120,7 @@ class Comment extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function ticket()
+    public function ticket(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Ticket::class);
     }
@@ -130,7 +132,7 @@ class Comment extends Model
      *
      * @return void
      */
-    public function setContentAttribute($value)
+    public function setContentAttribute(string $value): void
     {
         $this->attributes['content'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
@@ -140,7 +142,7 @@ class Comment extends Model
      *
      * @return string Parsed BBCODE To HTML
      */
-    public function getContentHtml()
+    public function getContentHtml(): string
     {
         $bbcode = new Bbcode();
         $linkify = new Linkify();
@@ -151,7 +153,7 @@ class Comment extends Model
     /**
      * Nootify Staff There Is Stale Tickets.
      */
-    public static function checkForStale(Ticket $ticket)
+    public static function checkForStale(Ticket $ticket): void
     {
         if (empty($ticket->reminded_at) || \strtotime($ticket->reminded_at) < \strtotime('+ 3 days')) {
             $last_comment = $ticket->comments()->orderBy('id', 'desc')->first();

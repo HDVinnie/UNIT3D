@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -20,9 +22,11 @@ use VStelmakh\UrlHighlight\Validator\Validator;
 class Linkify
 {
     /**
+     * @return string
+     *
      * @var string
      */
-    public function linky($text)
+    public function linky($text): string
     {
         $validator = new Validator(
             false, // bool - if should use top level domain to match urls without scheme

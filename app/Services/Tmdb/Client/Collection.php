@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -18,9 +20,9 @@ class Collection
     /**
      * @var \GuzzleHttp\Client|mixed
      */
-    public $client;
+    public mixed $client;
     public const API_BASE_URI = 'https://api.TheMovieDB.org/3';
-    public $data;
+    public mixed $data;
 
     public function __construct($id)
     {
@@ -51,12 +53,12 @@ class Collection
         return $this->data;
     }
 
-    public function get_name()
+    public function get_name(): array | string | null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['name']);
     }
 
-    public function get_overview()
+    public function get_overview(): array | string | null
     {
         return \preg_replace('/[[:^print:]]/', '', $this->data['overview']);
     }
@@ -66,7 +68,7 @@ class Collection
         return $this->data['id'];
     }
 
-    public function get_backdrop()
+    public function get_backdrop(): ?string
     {
         if ($this->data['backdrop_path']) {
             return 'https://image.tmdb.org/t/p/original'.$this->data['backdrop_path'];
@@ -75,7 +77,7 @@ class Collection
         return null;
     }
 
-    public function get_poster()
+    public function get_poster(): ?string
     {
         if ($this->data['poster_path']) {
             return 'https://image.tmdb.org/t/p/original'.$this->data['poster_path'];

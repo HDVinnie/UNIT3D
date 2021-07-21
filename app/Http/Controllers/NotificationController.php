@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -35,11 +37,9 @@ class NotificationController extends Controller
      * Uses Input's To Put Together A Search.
      *
      *
-     * @throws \Throwable
-     *
-     * @return array
+     *@throws \Throwable
      */
-    public function faceted(Request $request)
+    public function faceted(Request $request): string
     {
         $user = $request->user();
 
@@ -131,12 +131,8 @@ class NotificationController extends Controller
 
     /**
      * Show A Notification And Mark As Read.
-     *
-     * @param \App\Models\Notification $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, \App\Models\Notification $id): \Illuminate\Http\RedirectResponse
     {
         $notification = $request->user()->notifications()->findOrFail($id);
         $notification->markAsRead();
@@ -147,12 +143,8 @@ class NotificationController extends Controller
 
     /**
      * Set A Notification To Read.
-     *
-     * @param \App\Models\Notification $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, \App\Models\Notification $id): \Illuminate\Http\RedirectResponse
     {
         $notification = $request->user()->notifications()->where('id', '=', $id)->first();
 
@@ -177,10 +169,8 @@ class NotificationController extends Controller
      *
      *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function updateAll(Request $request)
+    public function updateAll(Request $request): \Illuminate\Http\RedirectResponse
     {
         $carbon = new Carbon();
         $request->user()->unreadNotifications()->update(['read_at' => $carbon]);
@@ -191,12 +181,8 @@ class NotificationController extends Controller
 
     /**
      * Delete A Notification.
-     *
-     * @param \App\Models\Notification $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, \App\Models\Notification $id): \Illuminate\Http\RedirectResponse
     {
         $request->user()->notifications()->findOrFail($id)->delete();
 
@@ -206,11 +192,8 @@ class NotificationController extends Controller
 
     /**
      * Mass Delete All Notification's.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroyAll(Request $request)
+    public function destroyAll(Request $request): \Illuminate\Http\RedirectResponse
     {
         $request->user()->notifications()->delete();
 

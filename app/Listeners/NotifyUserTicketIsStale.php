@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -30,11 +32,8 @@ class NotifyUserTicketIsStale
 
     /**
      * Handle the event.
-     *
-     *
-     * @return void
      */
-    public function handle(TicketWentStale $event)
+    public function handle(TicketWentStale $event): void
     {
         $event->ticket->user->notify(new UserTicketStale($event->ticket));
         $event->ticket->update(['reminded_at' => \time()]);

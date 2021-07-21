@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -36,7 +38,7 @@ class DisableUser extends Mailable
      *
      * @return $this
      */
-    public function build()
+    public function build(): self
     {
         return $this->markdown('emails.disabled')
             ->subject('Your Account Has Been Disabled - '.\config('other.title'));

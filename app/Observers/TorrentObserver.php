@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -19,55 +21,40 @@ class TorrentObserver
 {
     /**
      * Handle the Torrent "created" event.
-     *
-     *
-     * @return void
      */
-    public function created(Torrent $torrent)
+    public function created(Torrent $torrent): void
     {
         //\cache()->put(\sprintf('torrent:%s', $torrent->info_hash), $torrent);
     }
 
     /**
      * Handle the Torrent "updated" event.
-     *
-     *
-     * @return void
      */
-    public function updated(Torrent $torrent)
+    public function updated(Torrent $torrent): void
     {
         //\cache()->put(\sprintf('torrent:%s', $torrent->info_hash), $torrent);
     }
 
     /**
      * Handle the Torrent "retrieved" event.
-     *
-     *
-     * @return void
      */
-    public function retrieved(Torrent $torrent)
+    public function retrieved(Torrent $torrent): void
     {
         //\cache()->add(\sprintf('torrent:%s', $torrent->info_hash), $torrent);
     }
 
     /**
      * Handle the Torrent "deleted" event.
-     *
-     *
-     * @return void
      */
-    public function deleted(Torrent $torrent)
+    public function deleted(Torrent $torrent): void
     {
         //\cache()->forget(\sprintf('torrent:%s', $torrent->info_hash));
     }
 
     /**
      * Handle the Torrent "restored" event.
-     *
-     *
-     * @return void
      */
-    public function restored(Torrent $torrent)
+    public function restored(Torrent $torrent): void
     {
         //\cache()->put(\sprintf('torrent:%s', $torrent->info_hash), $torrent);
     }

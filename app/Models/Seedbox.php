@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -58,7 +60,7 @@ class Seedbox extends Model
      *
      * @var array
      */
-    protected $encryptable = [
+    protected array $encryptable = [
         'ip',
     ];
 
@@ -67,7 +69,7 @@ class Seedbox extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',

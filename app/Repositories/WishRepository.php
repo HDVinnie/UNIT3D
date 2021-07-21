@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -37,10 +39,7 @@ class WishRepository implements WishInterface
         return $paginate ? $this->wish->paginate($paginate) : $this->wish->all();
     }
 
-    /**
-     * @return mixed
-     */
-    public function create(array $data)
+    public function create(array $data): mixed
     {
         return $this->wish->create($data);
     }
@@ -50,7 +49,7 @@ class WishRepository implements WishInterface
      *
      * @return mixed
      */
-    public function findById($id)
+    public function findById($id): mixed
     {
         return $this->wish->find($id);
     }
@@ -60,7 +59,7 @@ class WishRepository implements WishInterface
      *
      * @return mixed
      */
-    public function findByTitle($title)
+    public function findByTitle($title): mixed
     {
         return $this->wish->where('title', '=', $title)->first();
     }
@@ -71,7 +70,7 @@ class WishRepository implements WishInterface
      *
      * @return bool
      */
-    public function exists($uid, $id)
+    public function exists($uid, $id): bool
     {
         return (bool) $this->user->find($uid)
             ->wishes()
@@ -84,7 +83,7 @@ class WishRepository implements WishInterface
      *
      * @return bool
      */
-    public function isGranted($id)
+    public function isGranted($id): bool
     {
         return (bool) $this->torrent
             ->where('tmdb', '=', $id)
@@ -98,7 +97,7 @@ class WishRepository implements WishInterface
      *
      * @return null|string
      */
-    public function getSource($id)
+    public function getSource($id): ?string
     {
         if ($this->isGranted($id)) {
             $source = $this->torrent
@@ -118,7 +117,7 @@ class WishRepository implements WishInterface
      *
      * @return mixed
      */
-    public function getUserWishes($uid)
+    public function getUserWishes($uid): mixed
     {
         return $this->user->find($uid)->wishes()->paginate(10);
     }
@@ -128,7 +127,7 @@ class WishRepository implements WishInterface
      *
      * @return mixed
      */
-    public function delete($id)
+    public function delete($id): mixed
     {
         return $this->findById($id)->delete();
     }

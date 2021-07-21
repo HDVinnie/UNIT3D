@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -22,7 +24,7 @@ class TrustHosts extends Middleware
      *
      * @return array
      */
-    public function hosts()
+    public function hosts(): array
     {
         return [
             $this->allSubdomainsOfApplicationUrl(),

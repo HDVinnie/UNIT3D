@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -34,7 +36,7 @@ class NotifyUserCommentWasCreated
      *
      * @return void
      */
-    public function handle(CommentCreated $event)
+    public function handle(CommentCreated $event): void
     {
         //
     }

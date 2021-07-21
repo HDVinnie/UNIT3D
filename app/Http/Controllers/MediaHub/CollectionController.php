@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -32,28 +34,23 @@ class CollectionController extends Controller
      *
      * @return void
      */
-    public function create()
+    public function create(): void
     {
         //
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     *
-     * @return void
      */
-    public function store(Request $request)
+    public function store(Request $request): void
     {
         //
     }
 
     /**
      * Display the specified resource.
-     *
-     * @param int $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function show(int $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $collection = Collection::with(['movie', 'comments'])->findOrFail($id);
 
@@ -69,19 +66,15 @@ class CollectionController extends Controller
      *
      * @return void
      */
-    public function edit($id)
+    public function edit(int $id): void
     {
         //
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param int $id
-     *
-     * @return void
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): void
     {
         //
     }
@@ -93,7 +86,7 @@ class CollectionController extends Controller
      *
      * @return void
      */
-    public function destroy($id)
+    public function destroy(int $id): void
     {
         //
     }

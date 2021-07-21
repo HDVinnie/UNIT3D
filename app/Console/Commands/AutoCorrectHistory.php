@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -39,11 +41,11 @@ class AutoCorrectHistory extends Command
     /**
      * Execute the console command.
      *
-     * @throws \Exception
+     *@throws \Exception
      *
-     * @return mixed
+     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $carbon = new Carbon();
         $history = History::select(['id', 'active', 'updated_at'])->where('active', '=', 1)->where('updated_at', '<', $carbon->copy()->subHours(2)->toDateTimeString())->get();

@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -55,7 +57,7 @@ class PlaylistTorrent extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function torrent()
+    public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Torrent::class);
     }
@@ -65,7 +67,7 @@ class PlaylistTorrent extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function playlist()
+    public function playlist(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Playlist::class);
     }

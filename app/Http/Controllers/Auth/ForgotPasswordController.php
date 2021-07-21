@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -26,7 +28,7 @@ class ForgotPasswordController extends Controller
         $this->middleware('guest');
     }
 
-    protected function validateEmail(Request $request)
+    protected function validateEmail(Request $request): void
     {
         if (\config('captcha.enabled') == false) {
             $request->validate(['email' => 'required|email']);

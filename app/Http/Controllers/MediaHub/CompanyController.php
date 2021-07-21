@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -30,6 +32,8 @@ class CompanyController extends Controller
      * Show A Company.
      *
      * @param $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {

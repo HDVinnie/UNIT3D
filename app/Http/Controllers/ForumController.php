@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -129,7 +131,6 @@ class ForumController extends Controller
                 $sorting = 'posts.id';
                 $direction = 'desc';
             }
-            $results = $result->orderBy($sorting, $direction)->paginate(25)->withQueryString();
         } else {
             if ($request->has('sorting') && $request->input('sorting') != null) {
                 $sorting = \sprintf('topics.%s', $request->input('sorting'));
@@ -138,8 +139,8 @@ class ForumController extends Controller
                 $sorting = 'topics.last_reply_at';
                 $direction = 'desc';
             }
-            $results = $result->orderBy($sorting, $direction)->paginate(25)->withQueryString();
         }
+        $results = $result->orderBy($sorting, $direction)->paginate(25)->withQueryString();
 
         // Total Forums Count
         $numForums = Forum::count();
@@ -298,10 +299,8 @@ class ForumController extends Controller
 
     /**
      * Show Forums And Topics Inside.
-     *
-     * @param \App\Models\Forum $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function show(Forum $id): \Illuminate\Http\RedirectResponse
     {
         // Find the topic
         $forum = Forum::findOrFail($id);

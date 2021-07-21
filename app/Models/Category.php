@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -71,7 +73,7 @@ class Category extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function torrents()
+    public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Torrent::class);
     }
@@ -81,7 +83,7 @@ class Category extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function requests()
+    public function requests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(TorrentRequest::class);
     }

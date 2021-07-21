@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -40,9 +42,9 @@ class DemoSeed extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $this->alert('Demo Seeder v2.0 (Author: Poppabear)');
         $this->warn('*** This process could take a few minutes ***');
@@ -275,7 +277,7 @@ Menu
         return (new Movie($id))->getData();
     }
 
-    private function ids()
+    private function ids(): array
     {
         return [
             '602315',

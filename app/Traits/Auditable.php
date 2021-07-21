@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -18,7 +20,7 @@ use Illuminate\Support\Facades\DB;
 
 trait Auditable
 {
-    public static function bootAuditable()
+    public static function bootAuditable(): void
     {
         static::created(function ($model) {
             self::registerCreate($model);
@@ -41,7 +43,7 @@ trait Auditable
      *
      * @return array
      */
-    protected static function strip($model, $data)
+    protected static function strip($model, $data): array
     {
         // Initialize an instance of $model
         $instance = new $model();
@@ -72,8 +74,10 @@ trait Auditable
      * @param array $new
      *
      * @throws \JsonException
+     *
+     * @return false|string
      */
-    protected static function generate($action, $old = [], $new = []): false | string
+    protected static function generate($action, array $old = [], array $new = []): false | string
     {
         $data = [];
         switch ($action) {
@@ -128,9 +132,9 @@ trait Auditable
     /**
      * Gets the current user ID, or null if guest.
      *
-     * @return mixed|null
+     * @return mixed
      */
-    public static function getUserId()
+    public static function getUserId(): mixed
     {
         if (\auth()->guest()) {
             return;
@@ -146,7 +150,7 @@ trait Auditable
      *
      * @throws \JsonException
      */
-    protected static function registerCreate($model)
+    protected static function registerCreate($model): void
     {
         // Get auth (if any)
         $userId = self::getUserId();
@@ -176,7 +180,7 @@ trait Auditable
      *
      * @throws \JsonException
      */
-    protected static function registerUpdate($model)
+    protected static function registerUpdate($model): void
     {
         // Get auth (if any)
         $userId = self::getUserId();
@@ -206,7 +210,7 @@ trait Auditable
      *
      * @throws \JsonException
      */
-    protected static function registerDelete($model)
+    protected static function registerDelete($model): void
     {
         // Get auth (if any)
         $userId = self::getUserId();

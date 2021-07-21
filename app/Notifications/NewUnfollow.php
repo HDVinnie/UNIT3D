@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -36,7 +38,7 @@ class NewUnfollow extends Notification implements ShouldQueue
      *
      * @return array
      */
-    public function via($notifiable)
+    public function via(mixed $notifiable): array
     {
         return ['database'];
     }
@@ -48,7 +50,7 @@ class NewUnfollow extends Notification implements ShouldQueue
      *
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray(mixed $notifiable): array
     {
         return [
             'title' => $this->sender->username.' Has Unfollowed You!',

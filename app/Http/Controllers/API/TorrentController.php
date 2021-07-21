@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -51,7 +53,7 @@ class TorrentController extends BaseController
      *
      * @return TorrentsResource
      */
-    public function index()
+    public function index(): TorrentsResource
     {
         return new TorrentsResource(Torrent::with(['category', 'type', 'resolution'])
             ->orderBy('sticky', 'desc')
@@ -271,7 +273,7 @@ class TorrentController extends BaseController
      *
      * @return TorrentResource
      */
-    public function show($id)
+    public function show(int $id): TorrentResource
     {
         $torrent = Torrent::findOrFail($id);
 
@@ -282,12 +284,8 @@ class TorrentController extends BaseController
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param int $id
-     *
-     * @return void
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): void
     {
         //
     }
@@ -299,17 +297,15 @@ class TorrentController extends BaseController
      *
      * @return void
      */
-    public function destroy($id)
+    public function destroy(int $id): void
     {
         //
     }
 
     /**
      * Uses Input's To Put Together A Search.
-     *
-     * @return \App\Http\Resources\TorrentsResource|\Illuminate\Http\JsonResponse
      */
-    public function filter(Request $request)
+    public function filter(Request $request): \Illuminate\Http\JsonResponse | TorrentsResource
     {
         $torrent = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
@@ -432,9 +428,9 @@ class TorrentController extends BaseController
      *
      * @param $mediainfo
      *
-     * @return array
+     * @return void
      */
-    private static function anonymizeMediainfo($mediainfo)
+    private static function anonymizeMediainfo($mediainfo): void
     {
         if ($mediainfo === null) {
             return;
@@ -462,7 +458,7 @@ class TorrentController extends BaseController
      *
      * @return array
      */
-    private static function parseKeywords($text)
+    private static function parseKeywords($text): array
     {
         $parts = \explode(', ', $text);
         $result = [];

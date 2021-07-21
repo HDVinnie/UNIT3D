@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -25,7 +27,7 @@ class VoteOnPoll extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -35,7 +37,7 @@ class VoteOnPoll extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'option' => 'required|min:1',
@@ -47,7 +49,7 @@ class VoteOnPoll extends FormRequest
      *
      * @return array
      */
-    public function messages()
+    public function messages(): array
     {
         return [
             'option.required' => 'You must select an answer',

@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -15,7 +17,7 @@ namespace App\Services\Tmdb;
 
 class TMDB
 {
-    public function image($type, $array)
+    public function image($type, $array): ?string
     {
         if (isset($array[$type.'_path'])) {
             return 'https://image.tmdb.org/t/p/original'.$array[$type.'_path'];
@@ -24,7 +26,7 @@ class TMDB
         return null;
     }
 
-    public function trailer($array)
+    public function trailer($array): ?string
     {
         if (isset($array['videos']['results'])) {
             return 'https://www.youtube.com/embed/'.$array['videos']['results'][0]['key'];
@@ -47,7 +49,7 @@ class TMDB
         return null;
     }
 
-    public function cast_array($cast)
+    public function cast_array($cast): array
     {
         return [
             'character' => $cast['character'],
@@ -59,7 +61,7 @@ class TMDB
         ];
     }
 
-    public function person_array($person)
+    public function person_array($person): array
     {
         return [
             'birthday'             => $this->ifExists('birthday', $person),

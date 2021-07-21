@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -37,7 +39,7 @@ class NewPost extends Notification implements ShouldQueue
      *
      * @return array
      */
-    public function via($notifiable)
+    public function via(mixed $notifiable): array
     {
         return ['database'];
     }
@@ -49,9 +51,9 @@ class NewPost extends Notification implements ShouldQueue
      *
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray(mixed $notifiable): array
     {
-        if ($this->type == 'subscription') {
+        if ($this->type === 'subscription') {
             return [
                 'title' => $this->user->username.' Has Posted In A Subscribed Topic',
                 'body'  => $this->user->username.' has left a new post in Subscribed Topic '.$this->post->topic->name,
@@ -59,7 +61,7 @@ class NewPost extends Notification implements ShouldQueue
             ];
         }
 
-        if ($this->type == 'staff') {
+        if ($this->type === 'staff') {
             return [
                 'title' => $this->user->username.' Has Posted In A Staff Forum Topic',
                 'body'  => $this->user->username.' has left a new post in Staff Topic '.$this->post->topic->name,

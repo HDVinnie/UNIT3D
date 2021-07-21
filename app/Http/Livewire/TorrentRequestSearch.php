@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -25,16 +27,16 @@ class TorrentRequestSearch extends Component
 {
     use WithPagination;
 
-    public $name = '';
-    public $requestor = '';
-    public $categories = [];
-    public $types = [];
-    public $resolutions = [];
-    public $genres = [];
-    public $tmdbId = '';
-    public $imdbId = '';
-    public $tvdbId = '';
-    public $malId = '';
+    public string $name = '';
+    public string $requestor = '';
+    public array $categories = [];
+    public array $types = [];
+    public array $resolutions = [];
+    public array $genres = [];
+    public string $tmdbId = '';
+    public string $imdbId = '';
+    public string $tvdbId = '';
+    public string $malId = '';
     public $unfilled;
     public $claimed;
     public $pending;
@@ -44,10 +46,10 @@ class TorrentRequestSearch extends Component
     public $myVoted;
     public $myFilled;
 
-    public $perPage = 25;
-    public $sortField = 'created_at';
-    public $sortDirection = 'desc';
-    public $showFilters = false;
+    public int $perPage = 25;
+    public string $sortField = 'created_at';
+    public string $sortDirection = 'desc';
+    public bool $showFilters = false;
 
     protected $queryString = [
         'name'          => ['except' => ''],
@@ -83,7 +85,7 @@ class TorrentRequestSearch extends Component
         $this->showFilters = ! $this->showFilters;
     }
 
-    final public function getTorrentRequestStatProperty()
+    final public function getTorrentRequestStatProperty(): \Illuminate\Database\Eloquent\Model | object | \Illuminate\Database\Query\Builder | null
     {
         return DB::table('requests')
             ->selectRaw('count(*) as total')
@@ -92,7 +94,7 @@ class TorrentRequestSearch extends Component
             ->first();
     }
 
-    final public function getTorrentRequestBountyStatProperty()
+    final public function getTorrentRequestBountyStatProperty(): \Illuminate\Database\Eloquent\Model | object | \Illuminate\Database\Query\Builder | null
     {
         return DB::table('requests')
             ->selectRaw('coalesce(sum(bounty), 0) as total')

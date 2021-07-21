@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -23,10 +25,8 @@ class BookmarkController extends Controller
 {
     /**
      * Display All Bookmarks.
-     *
-     * @param \App\Models\User $username
      */
-    public function index(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function index(Request $request, User $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 

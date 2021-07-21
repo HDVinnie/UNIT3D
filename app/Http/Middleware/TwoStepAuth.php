@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -26,10 +28,8 @@ class TwoStepAuth
      *
      *
      * @throws \Exception
-     *
-     * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
         $response = $next($request);
         $uri = $request->path();

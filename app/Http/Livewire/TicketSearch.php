@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -22,10 +24,10 @@ class TicketSearch extends Component
     use WithPagination;
 
     public $user;
-    public $perPage = 25;
-    public $search = '';
-    public $sortField = 'updated_at';
-    public $sortDirection = 'desc';
+    public int $perPage = 25;
+    public string $search = '';
+    public string $sortField = 'updated_at';
+    public string $sortDirection = 'desc';
 
     final public function mount(): void
     {

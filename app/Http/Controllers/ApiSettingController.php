@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -22,7 +24,7 @@ class ApiSettingController extends Controller
      *
      * @return void
      */
-    public function index()
+    public function index(): void
     {
         //
     }
@@ -32,18 +34,15 @@ class ApiSettingController extends Controller
      *
      * @return void
      */
-    public function create()
+    public function create(): void
     {
         //
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     *
-     * @return void
      */
-    public function store(Request $request)
+    public function store(Request $request): void
     {
         //
     }
@@ -55,7 +54,7 @@ class ApiSettingController extends Controller
      *
      * @return void
      */
-    public function show($id)
+    public function show(int $id): void
     {
         //
     }
@@ -67,19 +66,15 @@ class ApiSettingController extends Controller
      *
      * @return void
      */
-    public function edit($id)
+    public function edit(int $id): void
     {
         //
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param int $id
-     *
-     * @return void
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): void
     {
         //
     }
@@ -91,7 +86,7 @@ class ApiSettingController extends Controller
      *
      * @return void
      */
-    public function destroy($id)
+    public function destroy(int $id): void
     {
         //
     }

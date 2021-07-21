@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -26,7 +28,7 @@ class Tv extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function torrents()
+    public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Torrent::class, 'tmdb', 'id');
     }
@@ -34,7 +36,7 @@ class Tv extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function seasons()
+    public function seasons(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Season::class)
             ->orderBy('season_number');
@@ -43,7 +45,7 @@ class Tv extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function persons()
+    public function persons(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Person::class);
     }
@@ -51,7 +53,7 @@ class Tv extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function cast()
+    public function cast(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Cast::class, 'cast_tv', 'cast_id', 'tv_id');
     }
@@ -59,7 +61,7 @@ class Tv extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function crew()
+    public function crew(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Crew::class, 'crew_tv', 'person_id', 'tv_id');
     }
@@ -67,7 +69,7 @@ class Tv extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function genres()
+    public function genres(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Genre::class);
     }
@@ -75,7 +77,7 @@ class Tv extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function creators()
+    public function creators(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Person::class);
     }
@@ -83,7 +85,7 @@ class Tv extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function networks()
+    public function networks(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Network::class);
     }
@@ -91,7 +93,7 @@ class Tv extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function companies()
+    public function companies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Company::class);
     }
@@ -99,7 +101,7 @@ class Tv extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function recommendations()
+    public function recommendations(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Recommendation::class, 'tv_id', 'id');
     }

@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -22,10 +24,10 @@ class BookmarkSearch extends Component
 {
     use WithPagination;
 
-    public $perPage = 25;
-    public $search = '';
-    public $sortField = 'created_at';
-    public $sortDirection = 'desc';
+    public int $perPage = 25;
+    public string $search = '';
+    public string $sortField = 'created_at';
+    public string $sortDirection = 'desc';
     public $user;
 
     final public function mount(): void
@@ -33,17 +35,17 @@ class BookmarkSearch extends Component
         $this->user = \auth()->user();
     }
 
-    final public function paginationView()
+    final public function paginationView(): string
     {
         return 'vendor.pagination.livewire-pagination';
     }
 
-    final public function updatingSearch()
+    final public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    final public function sortBy($field)
+    final public function sortBy($field): void
     {
         if ($this->sortField === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
@@ -71,7 +73,7 @@ class BookmarkSearch extends Component
         return PersonalFreeleech::where('user_id', '=', $this->user->id)->first();
     }
 
-    public function render()
+    public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
     {
         return \view('livewire.bookmark-search', [
             'user'               => $this->user,

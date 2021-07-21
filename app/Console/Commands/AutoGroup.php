@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -43,9 +45,9 @@ class AutoGroup extends Command
      * Execute the console command.
      *
      *
-     * @return mixed
+     * @return void
      */
-    public function handle(ByteUnits $byteUnits)
+    public function handle(ByteUnits $byteUnits): void
     {
         // Temp Hard Coding of Immune Groups (Config Files To Come)
         $current = Carbon::now();

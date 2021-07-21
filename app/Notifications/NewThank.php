@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -35,7 +37,7 @@ class NewThank extends Notification
      *
      * @return array
      */
-    public function via($notifiable)
+    public function via(mixed $notifiable): array
     {
         return ['database'];
     }
@@ -47,7 +49,7 @@ class NewThank extends Notification
      *
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray(mixed $notifiable): array
     {
         return [
             'title' => $this->thank->user->username.' Has Thanked You For An Uploaded Torrent',

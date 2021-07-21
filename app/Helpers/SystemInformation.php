@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -33,14 +35,14 @@ class SystemInformation
         'sqlsrv',
     ];
 
-    public function avg()
+    public function avg(): ?float
     {
         if (\is_readable('/proc/loadavg')) {
             return (float) \file_get_contents('/proc/loadavg');
         }
     }
 
-    public function memory()
+    public function memory(): array
     {
         if (\is_readable('/proc/meminfo')) {
             $content = \file_get_contents('/proc/meminfo');
@@ -65,7 +67,7 @@ class SystemInformation
         ];
     }
 
-    protected function formatBytes($bytes, $precision = 2)
+    protected function formatBytes($bytes, $precision = 2): string
     {
         $bytes = \max($bytes, 0);
         $pow = \floor(($bytes ? \log($bytes) : 0) / \log(1_024));
@@ -77,7 +79,7 @@ class SystemInformation
         return \round($bytes, $precision).' '.self::UNITS[$pow];
     }
 
-    public function disk()
+    public function disk(): array
     {
         $total = \disk_total_space(\base_path());
         $free = \disk_free_space(\base_path());
@@ -89,7 +91,7 @@ class SystemInformation
         ];
     }
 
-    public function uptime()
+    public function uptime(): ?float
     {
         if (\is_readable('/proc/uptime')) {
             return (float) \file_get_contents('/proc/uptime');
@@ -101,7 +103,7 @@ class SystemInformation
         return Carbon::now();
     }
 
-    public function basic()
+    public function basic(): array
     {
         return [
             'os'       => PHP_OS,
@@ -111,7 +113,7 @@ class SystemInformation
         ];
     }
 
-    private function getDatabase()
+    private function getDatabase(): string
     {
         if (! \in_array(\config('database.default'), self::KNOWN_DATABASES, true)) {
             return 'Unkown';
@@ -126,7 +128,7 @@ class SystemInformation
      *
      * @return array
      */
-    public function directoryPermissions()
+    public function directoryPermissions(): array
     {
         return [
             [
@@ -156,6 +158,8 @@ class SystemInformation
      * Get the file permissions for a specific path/file.
      *
      * @param $path
+     *
+     * @return string|\Symfony\Component\Translation\TranslatorInterface
      */
     public function getDirectoryPermission($path): string | \Symfony\Component\Translation\TranslatorInterface
     {

@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -18,14 +20,14 @@ use Illuminate\Database\Eloquent\Model;
 class Episode extends Model
 {
     protected $guarded = [];
-    protected $orderBy = 'order';
-    protected $orderDirection = 'ASC';
+    protected string $orderBy = 'order';
+    protected string $orderDirection = 'ASC';
     public $table = 'episodes';
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function season()
+    public function season(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Season::class)
             ->orderBy('season_id')
@@ -35,7 +37,7 @@ class Episode extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function person()
+    public function person(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Person::class);
     }
@@ -43,7 +45,7 @@ class Episode extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function cast()
+    public function cast(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Cast::class)
             ->orderBy('order');
@@ -52,7 +54,7 @@ class Episode extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function crew()
+    public function crew(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Crew::class, 'crew_episode', 'person_id', 'episode_id');
     }
@@ -60,7 +62,7 @@ class Episode extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function guest_star()
+    public function guest_star(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(GuestStar::class, 'episode_guest_star', 'person_id', 'episode_id');
     }

@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -51,11 +53,8 @@ class GroupController extends Controller
 
     /**
      * Store A New Group.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         \abort_unless($user->group->is_admin, 403);
@@ -115,10 +114,8 @@ class GroupController extends Controller
 
     /**
      * Group Edit Form.
-     *
-     * @param \App\Models\Group $id
      */
-    public function edit(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function edit(Request $request, Group $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
         \abort_unless($user->group->is_admin, 403);
@@ -130,12 +127,8 @@ class GroupController extends Controller
 
     /**
      * Edit A Group.
-     *
-     * @param \App\Models\Group $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Group $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         \abort_unless($user->group->is_admin, 403);

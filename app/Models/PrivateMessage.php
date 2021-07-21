@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -59,7 +61,7 @@ class PrivateMessage extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function sender()
+    public function sender(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'sender_id')->withDefault([
             'username' => 'System',
@@ -72,7 +74,7 @@ class PrivateMessage extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function receiver()
+    public function receiver(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'receiver_id')->withDefault([
             'username' => 'System',
@@ -87,7 +89,7 @@ class PrivateMessage extends Model
      *
      * @return void
      */
-    public function setMessageAttribute($value)
+    public function setMessageAttribute(string $value): void
     {
         $this->attributes['message'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
@@ -97,7 +99,7 @@ class PrivateMessage extends Model
      *
      * @return string Parsed BBCODE To HTML
      */
-    public function getMessageHtml()
+    public function getMessageHtml(): string
     {
         $bbcode = new Bbcode();
         $linkify = new Linkify();

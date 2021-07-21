@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -29,7 +31,7 @@ class TicketClosed
      * Create a new event instance.
      *
      *
-     * @return mixed
+     * @return void
      */
     public function __construct(public Ticket $ticket)
     {

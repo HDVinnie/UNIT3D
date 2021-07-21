@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -33,12 +35,8 @@ class ReportController extends Controller
 
     /**
      * Create A Request Report.
-     *
-     * @param \App\Models\TorrentRequest $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function request(Request $request, $id)
+    public function request(Request $request, TorrentRequest $id): \Illuminate\Http\RedirectResponse
     {
         $torrentRequest = TorrentRequest::findOrFail($id);
         $reportedBy = $request->user();
@@ -69,12 +67,8 @@ class ReportController extends Controller
 
     /**
      * Create A Torrent Report.
-     *
-     * @param \App\Models\Torrent $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function torrent(Request $request, $id)
+    public function torrent(Request $request, Torrent $id): \Illuminate\Http\RedirectResponse
     {
         $torrent = Torrent::findOrFail($id);
         $reportedBy = $request->user();
@@ -105,12 +99,8 @@ class ReportController extends Controller
 
     /**
      * Create A User Report.
-     *
-     * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function user(Request $request, $username)
+    public function user(Request $request, User $username): \Illuminate\Http\RedirectResponse
     {
         $reportedUser = User::where('username', '=', $username)->firstOrFail();
         $reportedBy = $request->user();

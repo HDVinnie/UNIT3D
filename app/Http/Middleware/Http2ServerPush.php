@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -26,7 +28,7 @@ class Http2ServerPush
      *
      * @var \Symfony\Component\DomCrawler\Crawler
      */
-    protected $crawler;
+    protected Crawler $crawler;
 
     /**
      * @var string[]
@@ -42,10 +44,8 @@ class Http2ServerPush
      * @param null $limit
      * @param null $sizeLimit
      * @param null $excludeKeywords
-     *
-     * @return mixed
      */
-    public function handle(Request $request, Closure $next, $limit = null, $sizeLimit = null, $excludeKeywords = null)
+    public function handle(Request $request, Closure $next, $limit = null, $sizeLimit = null, $excludeKeywords = null): mixed
     {
         $response = $next($request);
 
@@ -74,7 +74,7 @@ class Http2ServerPush
      *
      * @return $this
      */
-    protected function generateAndAttachLinkHeaders(Response $response, $limit = null, $sizeLimit = null, $excludeKeywords = null)
+    protected function generateAndAttachLinkHeaders(Response $response, $limit = null, $sizeLimit = null, $excludeKeywords = null): self
     {
         $excludeKeywords ?? $this->getConfig('exclude_keywords', []);
         $headers = $this->fetchLinkableNodes($response)
@@ -110,11 +110,8 @@ class Http2ServerPush
 
     /**
      * Get the DomCrawler instance.
-     *
-     *
-     * @return \Symfony\Component\DomCrawler\Crawler
      */
-    protected function getCrawler(Response $response)
+    protected function getCrawler(Response $response): Crawler
     {
         if ($this->crawler) {
             return $this->crawler;
@@ -130,7 +127,7 @@ class Http2ServerPush
      *
      * @return \Illuminate\Support\Collection
      */
-    protected function fetchLinkableNodes($response)
+    protected function fetchLinkableNodes(Response $response): \Illuminate\Support\Collection
     {
         $crawler = $this->getCrawler($response);
 
@@ -142,9 +139,9 @@ class Http2ServerPush
      *
      * @param string $url
      *
-     * @return string
+     * @return string|null
      */
-    private function buildLinkHeaderString($url)
+    private function buildLinkHeaderString(string $url): ?string
     {
         $type = \collect(self::LINK_TYPE_MAP)->first(fn ($type, $extension) => Str::contains(\strtoupper($url), $extension));
         if (! \preg_match('#^https?://#i', $url)) {
@@ -158,9 +155,10 @@ class Http2ServerPush
     /**
      * Add Link Header.
      *
-     * @param $link
+     * @param \Illuminate\Http\Response $response
+     * @param                           $link
      */
-    private function addLinkHeader(Response $response, $link)
+    private function addLinkHeader(Response $response, $link): void
     {
         if ($response->headers->get('Link')) {
             $link = $response->headers->get('Link').','.$link;

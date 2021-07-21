@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -59,7 +61,7 @@ class FailedLoginAttempt extends Model
      *
      * @return mixed
      */
-    public static function record($user, $username, $ip)
+    public static function record($user, $username, $ip): mixed
     {
         return static::create([
             'user_id'    => \is_null($user) ? null : $user->id,

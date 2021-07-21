@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -32,11 +34,8 @@ class NotifyStaffTicketWasClosed
 
     /**
      * Handle the event.
-     *
-     *
-     * @return void
      */
-    public function handle(TicketClosed $event)
+    public function handle(TicketClosed $event): void
     {
         $staff = User::where(['is_modo' => 1])->limit(1)->get();
         Notification::send($staff, new StaffTicketClosed($event->ticket));

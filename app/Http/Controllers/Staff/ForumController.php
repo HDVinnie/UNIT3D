@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -48,11 +50,8 @@ class ForumController extends Controller
 
     /**
      * Store A New Forum.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $groups = Group::all();
 
@@ -92,10 +91,8 @@ class ForumController extends Controller
 
     /**
      * Forum Edit Form.
-     *
-     * @param \App\Models\Forum $id
      */
-    public function edit($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function edit(Forum $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $forum = Forum::findOrFail($id);
         $categories = Forum::where('parent_id', '=', 0)->get();
@@ -110,12 +107,8 @@ class ForumController extends Controller
 
     /**
      * Edit A Forum.
-     *
-     * @param \App\Models\Forum $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Forum $id): \Illuminate\Http\RedirectResponse
     {
         $forum = Forum::findOrFail($id);
         $groups = Group::all();
@@ -124,7 +117,7 @@ class ForumController extends Controller
         $forum->position = $request->input('position');
         $forum->slug = Str::slug($request->input('title'));
         $forum->description = $request->input('description');
-        $forum->parent_id = $request->input('forum_type') == 'category' ? 0 : $request->input('parent_id');
+        $forum->parent_id = $request->input('forum_type') === 'category' ? 0 : $request->input('parent_id');
         $forum->save();
 
         // Permissions
@@ -158,11 +151,11 @@ class ForumController extends Controller
      *
      * @param \App\Models\Forum $id
      *
-     * @throws \Exception
+     *@throws \Exception
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Forum $id): \Illuminate\Http\RedirectResponse
     {
         // Forum to delete
         $forum = Forum::findOrFail($id);

@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -29,9 +31,9 @@ class MessageEdited implements ShouldBroadcastNow
     /**
      * Message details.
      *
-     * @var Message
+     * @var \App\Http\Resources\ChatMessageResource|Message
      */
-    public $message;
+    public Message | ChatMessageResource $message;
 
     /**
      * Create a new event instance.
@@ -47,14 +49,14 @@ class MessageEdited implements ShouldBroadcastNow
      *
      * @return PresenceChannel
      */
-    public function broadcastOn()
+    public function broadcastOn(): PresenceChannel
     {
         // $this->dontBroadcastToCurrentUser();
 
         return new PresenceChannel('chatroom.'.$this->message->chatroom_id);
     }
 
-    public function broadcastAs()
+    public function broadcastAs(): string
     {
         return 'edit.message';
     }

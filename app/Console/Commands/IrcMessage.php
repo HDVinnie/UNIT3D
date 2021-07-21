@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -36,9 +38,9 @@ class IrcMessage extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $this->info('Messaging '.$this->argument('channel').': '.$this->argument('message'));
         $ircAnnounceBot = new IRCAnnounceBot();
@@ -50,7 +52,7 @@ class IrcMessage extends Command
      *
      * @return array
      */
-    protected function getArguments()
+    protected function getArguments(): array
     {
         return [
             ['channel', InputArgument::REQUIRED, 'Channel that you would like to message'],

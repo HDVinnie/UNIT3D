@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -43,10 +45,8 @@ class ApplicationController extends Controller
 
     /**
      * Get A Application.
-     *
-     * @param \App\Models\Application $id
      */
-    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+    public function show(Application $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $application = Application::withAnyStatus()->with(['user', 'moderated', 'imageProofs', 'urlProofs'])->findOrFail($id);
 
@@ -56,13 +56,10 @@ class ApplicationController extends Controller
     /**
      * Approve A Application.
      *
-     * @param \App\Models\Application $id
      *
-     * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
+     *@throws \Exception
      */
-    public function approve(Request $request, $id)
+    public function approve(Request $request, Application $id): \Illuminate\Http\RedirectResponse
     {
         $application = Application::withAnyStatus()->findOrFail($id);
 
@@ -108,12 +105,8 @@ class ApplicationController extends Controller
 
     /**
      * Reject A Application.
-     *
-     * @param \App\Models\Application $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function reject(Request $request, $id)
+    public function reject(Request $request, Application $id): \Illuminate\Http\RedirectResponse
     {
         $application = Application::withAnyStatus()->findOrFail($id);
 

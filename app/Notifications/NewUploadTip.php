@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -25,7 +27,10 @@ class NewUploadTip extends Notification implements ShouldQueue
     /**
      * NewUploadTip Constructor.
      *
-     * @param $amount
+     * @param string              $type
+     * @param string              $tipper
+     * @param                     $amount
+     * @param \App\Models\Torrent $torrent
      */
     public function __construct(public string $type, public string $tipper, public $amount, public Torrent $torrent)
     {
@@ -38,7 +43,7 @@ class NewUploadTip extends Notification implements ShouldQueue
      *
      * @return array
      */
-    public function via($notifiable)
+    public function via(mixed $notifiable): array
     {
         return ['database'];
     }
@@ -50,7 +55,7 @@ class NewUploadTip extends Notification implements ShouldQueue
      *
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray(mixed $notifiable): array
     {
         return [
             'title' => $this->tipper.' Has Tipped You '.$this->amount.' BON For An Uploaded Torrent',

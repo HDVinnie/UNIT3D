@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -36,7 +38,7 @@ use Carbon\Carbon;
 
 class TorrentHelper
 {
-    public static function approveHelper($id)
+    public static function approveHelper($id): void
     {
         $appurl = \config('app.url');
         $appname = \config('app.name');
@@ -105,12 +107,11 @@ class TorrentHelper
             if ($anon == 0) {
                 $ircAnnounceBot->message(\config('irc-bot.channel'), '['.$appname.'] User '.$username.' has uploaded '.$torrent->name.' grab it now!');
                 $ircAnnounceBot->message(\config('irc-bot.channel'), '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type->name.'] [Size:'.$torrent->getSize().']');
-                $ircAnnounceBot->message(\config('irc-bot.channel'), \sprintf('[Link: %s/torrents/', $appurl).$id.']');
             } else {
                 $ircAnnounceBot->message(\config('irc-bot.channel'), '['.$appname.'] An anonymous user has uploaded '.$torrent->name.' grab it now!');
                 $ircAnnounceBot->message(\config('irc-bot.channel'), '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type->name.'] [Size: '.$torrent->getSize().']');
-                $ircAnnounceBot->message(\config('irc-bot.channel'), \sprintf('[Link: %s/torrents/', $appurl).$id.']');
             }
+            $ircAnnounceBot->message(\config('irc-bot.channel'), \sprintf('[Link: %s/torrents/', $appurl).$id.']');
         }
     }
 }

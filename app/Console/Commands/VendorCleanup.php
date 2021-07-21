@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -32,7 +34,7 @@ class VendorCleanup extends Command
      */
     protected $description = 'Cleans up useless files from  vendor folder.';
 
-    protected $patterns =
+    protected array $patterns =
         [
             'test',
             'tests',
@@ -75,7 +77,7 @@ class VendorCleanup extends Command
      *
      * @return void
      */
-    protected $excluded =
+    protected array $excluded =
         [
             /**List of  Folders*/
             'src',
@@ -90,9 +92,9 @@ class VendorCleanup extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $patterns = \array_diff($this->patterns, $this->excluded);
 
@@ -145,7 +147,7 @@ class VendorCleanup extends Command
      *
      * @return array
      */
-    protected function expandDirectoryTree($dir)
+    protected function expandDirectoryTree(string $dir): array
     {
         $directories = [];
         foreach (\array_diff(\scandir($dir), ['.', '..']) as $file) {
@@ -164,9 +166,9 @@ class VendorCleanup extends Command
      *
      * @param string $dir
      *
-     * @return bool
+     * @return bool|null
      */
-    protected function delTree($dir)
+    protected function delTree(string $dir): ?bool
     {
         if (! \file_exists($dir) || ! \is_dir($dir)) {
             return false;
@@ -192,12 +194,12 @@ class VendorCleanup extends Command
      *
      * @return string
      */
-    protected function prepareWord($matches)
+    protected function prepareWord(string $matches): string
     {
         return '['.\strtolower($matches[1]).\strtoupper($matches[1]).']';
     }
 
-    protected function arrayFind($needle, array $haystack)
+    protected function arrayFind($needle, array $haystack): bool | int | string
     {
         foreach ($haystack as $key => $value) {
             if (false !== \stripos($value, $needle)) {
@@ -208,12 +210,8 @@ class VendorCleanup extends Command
         return false;
     }
 
-    protected function out($message)
+    protected function out($message): void
     {
-        if ($this->option('check')) {
-            echo $message.PHP_EOL;
-        } else {
-            echo $message.PHP_EOL;
-        }
+        echo $message.PHP_EOL;
     }
 }

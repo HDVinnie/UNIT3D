@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,7 +26,7 @@ class LoginListener
      *
      * @return void
      */
-    public function handle($event)
+    public function handle($event): void
     {
         // Update Login Timestamp
         $event->user->last_login = Carbon::now();

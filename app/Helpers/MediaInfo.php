@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -35,7 +37,7 @@ class MediaInfo
      */
     private const FACTORS = ['b' => 0, 'kb' => 1, 'mb' => 2, 'gb' => 3, 'tb' => 4, 'pb' => 5, 'eb' => 6, 'zb' => 7, 'yb' => 8];
 
-    public function parse($string)
+    public function parse($string): array
     {
         $string = \trim($string);
         $lines = \preg_split("/\r\n|\n|\r/", $string);
@@ -59,7 +61,7 @@ class MediaInfo
         return $this->formatOutput($output);
     }
 
-    private function parseSections(array $sections)
+    private function parseSections(array $sections): array
     {
         $output = [];
         foreach ($sections as $key => $section) {
@@ -76,7 +78,7 @@ class MediaInfo
         return $output;
     }
 
-    private function parseProperty($sections, $section)
+    private function parseProperty($sections, $section): array
     {
         $output = [];
         foreach ($sections as $info) {
@@ -315,7 +317,7 @@ class MediaInfo
         return $pathParts['basename'];
     }
 
-    private function parseFileSize($string)
+    private function parseFileSize($string): float
     {
         $number = (float) $string;
         \preg_match('#[KMGTPEZ]#i', $string, $size);
@@ -326,22 +328,22 @@ class MediaInfo
         return $number;
     }
 
-    private function parseBitRate($string)
+    private function parseBitRate($string): array | string
     {
         return \str_replace([' ', 'kbps'], ['', ' kbps'], \strtolower($string));
     }
 
-    private function parseWidthHeight($string)
+    private function parseWidthHeight($string): array | string
     {
         return \str_replace(['pixels', ' '], null, \strtolower($string));
     }
 
-    private function parseAudioChannels($string)
+    private function parseAudioChannels($string): array | string
     {
         return \str_ireplace(\array_keys(self::REPLACE), self::REPLACE, $string);
     }
 
-    private function formatOutput($data)
+    private function formatOutput($data): array
     {
         $output = [];
         $output['general'] = empty($data['general']) ? null : $data['general'];
@@ -352,7 +354,7 @@ class MediaInfo
         return $output;
     }
 
-    private function computerSize($number, $size)
+    private function computerSize($number, $size): float
     {
         $bytes = (float) $number;
         $size = \strtolower($size);

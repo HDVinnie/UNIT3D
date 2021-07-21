@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -59,9 +61,9 @@ class WatchlistController extends Controller
     /**
      * Delete A Watched User.
      *
-     * @param $id
+     * @param int $id
      *
-     * @throws \Exception
+     * @return \Illuminate\Http\RedirectResponse
      */
     final public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {

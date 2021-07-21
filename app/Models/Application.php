@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -64,7 +66,7 @@ class Application extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
     }
@@ -74,7 +76,7 @@ class Application extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function moderated()
+    public function moderated(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'moderated_by');
     }
@@ -84,7 +86,7 @@ class Application extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function imageProofs()
+    public function imageProofs(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(ApplicationImageProof::class);
     }
@@ -94,7 +96,7 @@ class Application extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function urlProofs()
+    public function urlProofs(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(ApplicationUrlProof::class);
     }
